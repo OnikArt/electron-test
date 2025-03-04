@@ -1,13 +1,12 @@
-const { ipcRenderer } = require('electron')
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
 	const list = document.querySelector('.users-list')
-	async () => {
-		const data = await ipcRenderer.invoke('main', data)
-		console.log(data)
-	}
+	window.electron.fetchData('https://reqres.in/api/users')
+	.then(data => {
+		parsingData(data.data)
+	})
+	.catch(error => {
+		console.error("Error fetching data", error)
+	})
 	function createElement(
 		firstname = 'Not a find',
 		lastname = 'Not a find',
